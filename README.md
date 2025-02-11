@@ -3,7 +3,8 @@
 
 ## Scratch V2
 Scratch could potentially be used as a visualize cue ball trajectories, i.e. aim assistant<br>
-![alt text](http://url/to/img.png)
+
+![alt text](assets/figures/)
 
 
 
