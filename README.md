@@ -1,5 +1,7 @@
 # Scratch
-**Purpose:** Scratch is a mobile app for pool players of all levels to track, visualize, and empower their gameplay. My hope for this project is to showcase AI's ability to keep track of pool gameplay. In the future I like to enable users to visualize what went wrong and how to improve.
+**Purpose:** Scratch is a mobile app for pool players of all levels to track, visualize, and empower their gameplay. 
+My hope for this project is to showcase the power of AI as a tool to track pool gameplay. 
+In the future I like to enable users to visualize what went wrong and how to improve.
 
 ## Scratch V1
 We adopted Ultralytics "You-Only-Look-Once" models for real-time pool tracking 
