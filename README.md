@@ -3,13 +3,11 @@
 
 ## Scratch V1
 We adopted Ultralytics "You-Only-Look-Once" models for real-time pool tracking 
-
+![alt text](assets/figures/yolo_examples.png)
 
 ## Scratch V2
 Scratch could potentially be used as a visualize cue ball trajectories, i.e. aim assistant<br>
 ![alt text](assets/figures/future_goal.jpg)
 
-
-
-
+## Disclaimer
 Currently only supported for IOS
