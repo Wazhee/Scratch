@@ -35,12 +35,12 @@ while True:
             cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 255), 3)
 
             # confidence
-            confidence = math.ceil((box.conf[0]*100))/100
-            print("Confidence --->",confidence)
+            # confidence = math.ceil((box.conf[0]*100))/100
+            # print("Confidence --->",confidence)
 
             # class name
             cls = int(box.cls[0])
-            print("Class name -->", classNames[cls])
+            # print("Class name -->", classNames[cls])
 
             # object details
             org = [x1, y1]
@@ -50,8 +50,6 @@ while True:
             thickness = 2
 
             cv2.putText(frame, classNames[cls], org, font, fontScale, color, thickness)
-
-    cv2.imshow('Webcam', frame)
 
     # Process the frame using OpenCV functions
     cv2.imshow('Live Video', frame)
