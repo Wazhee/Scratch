@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import math 
 import time
 
-model = YOLO("yolo_weights/yolo11l.pt")
+model = YOLO("yolo_weights/yolo11s.pt")
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
