@@ -1,63 +1,42 @@
 import cv2
+import torch
+import numpy as np
 from ultralytics import YOLO
-import math 
-import time
-import random
 
-x_thresh, y_thresh = 300, 300
+# Load YOLOv11 model
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+model = YOLO('yolo_weights/yolo11s.pt').to(device)
 
-model = YOLO("yolo_weights/yolo11s.pt")
-
-
-classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
-              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
-              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
-              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
-              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
-              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
-              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
-              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
-              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
-              "teddy bear", "hair drier", "toothbrush"]
-
-cv2.namedWindow("preview")
+# Open camera feed
 cap = cv2.VideoCapture(0)
 
-prev_time = time.time()
-
-while True:
-    ret, frame = cap.read()  
+while cap.isOpened():
+    ret, frame = cap.read()
     if not ret:
         break
     
-    # frame_resized = cv2.resize(frame, (640, 480))  # Resize frame to 640x480 to increase speed
-    # results = model(frame_resized, stream=True)
-
-    results = model(frame, stream=True)
+    # Preprocess frame
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
-    # Calculate FPS
-    curr_time = time.time()
-    fps = int(1 / (curr_time - prev_time))
-    prev_time = curr_time
+    # Run detection
+    results = model(img)
     
-    # Draw FPS on frame
-    cv2.putText(frame, f"FPS: {fps}", (frame.shape[1] - 120, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    # choose a random color
-    ch1,ch2,ch3 = random.randint(0,255),random.randint(0,255),random.randint(0,255)
-    # Process detection results
+    # Draw detections on frame
     for r in results:
-        boxes = r.boxes
-        for box in boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0]) 
-            # check if box is too big
-            # if abs(x2 - x1) < x_thresh or abs(y2 - y1) < y_thresh:
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (ch1,ch2,ch3), 3)
+        for box in r.boxes:
+            x1, y1, x2, y2 = map(int, box.xyxy[0])
+            conf = box.conf[0].item()
             cls = int(box.cls[0])
-            cv2.putText(frame, classNames[cls], (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+            label = f'{model.names[cls]} {conf:.2f}'
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     
-    cv2.imshow('Live Video', frame)
+    # Show frame
+    cv2.imshow('YOLOv11 Live Detection', frame)
+    
+    # Exit condition
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-        
+
 cap.release()
 cv2.destroyAllWindows()
