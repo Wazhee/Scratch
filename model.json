@@ -1,0 +1,1 @@
+tensorflowjs_converter --input_format tf_saved_model yolo_weights/yolo11s.pt yolo_weights/
