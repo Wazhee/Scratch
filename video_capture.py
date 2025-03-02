@@ -2,8 +2,12 @@ import cv2
 from ultralytics import YOLO
 import math 
 import time
+import random
+
+x_thresh, y_thresh = 300, 300
 
 model = YOLO("yolo_weights/yolo11s.pt")
+
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
@@ -26,6 +30,9 @@ while True:
     if not ret:
         break
     
+    # frame_resized = cv2.resize(frame, (640, 480))  # Resize frame to 640x480 to increase speed
+    # results = model(frame_resized, stream=True)
+
     results = model(frame, stream=True)
     
     # Calculate FPS
@@ -35,13 +42,16 @@ while True:
     
     # Draw FPS on frame
     cv2.putText(frame, f"FPS: {fps}", (frame.shape[1] - 120, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    
+    # choose a random color
+    ch1,ch2,ch3 = random.randint(0,255),random.randint(0,255),random.randint(0,255)
     # Process detection results
     for r in results:
         boxes = r.boxes
         for box in boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 255), 3)
+            x1, y1, x2, y2 = map(int, box.xyxy[0]) 
+            # check if box is too big
+            # if abs(x2 - x1) < x_thresh or abs(y2 - y1) < y_thresh:
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (ch1,ch2,ch3), 3)
             cls = int(box.cls[0])
             cv2.putText(frame, classNames[cls], (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
     
