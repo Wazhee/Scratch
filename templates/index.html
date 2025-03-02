@@ -60,11 +60,6 @@
   }
 </style>
 <body>
-
-  <h1>Real-Time Object Detection</h1>
-  <img src="http://10.125.200.186:5000/video_feed" alt="Camera Feed">
-
-
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
@@ -74,7 +69,7 @@
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="https://wazhee.github.io/Jason-Uwaeze/" target="_blank">Jason Uwaeze</a><sup>*</sup>,</span>
                 <span class="author-block">
                   <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
                   <span class="author-block">
@@ -83,7 +78,7 @@
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Institution Name<br>Conferance name and year</span>
+                    <span class="author-block">Rice University<br>Conferance name and year</span>
                     <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
                   </div>
 
@@ -145,14 +140,11 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
+      <h1>Real-Time Object Detection</h1>
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+
+        <script src="script.js"></script>
     </div>
   </div>
 </section>
