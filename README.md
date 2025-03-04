@@ -14,8 +14,7 @@ Scratch could potentially be used as a visualize cue ball trajectories, i.e. aim
 ![alt text](assets/figures/future_goal.jpg)
 
 ## Disclaimer
-Currently only supported for IOS
-
+Currently only supported for Web
 ## Citations
 ```
 @inproceedings{redmon2016you,
